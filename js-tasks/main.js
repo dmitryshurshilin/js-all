@@ -100,16 +100,13 @@ const validBraces = (braces) => {
         ['[',']'],
     ])
 
-    const isOpen = (brace) => bracesMap.has(brace)
-    const isClose = (brace) => {
-        return !isOpen(brace)
-            && buffer.length > 0
-            && bracesMap.get(buffer[buffer.length - 1]) === brace
-    }
     const buffer = []
-    return braces.split('').every((brace) => {
-        return (isOpen(brace) && buffer.push(brace)) || (isClose(brace) && buffer.pop())
-    }) && buffer.length === 0
+    const isOpen = (brace) => bracesMap.has(brace) && buffer.push(brace)
+    const isClose = (brace) => !isOpen(brace) && bracesMap.get(buffer.pop()) === brace
+    
+    return braces
+        .split('')
+        .every((brace) => isOpen(brace) || isClose(brace)) && buffer.length === 0
 }
 
 module.exports = {
