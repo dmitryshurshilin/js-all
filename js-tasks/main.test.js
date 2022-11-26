@@ -6,6 +6,7 @@ const {
     arrayDiff,
     bakeCakes,
     createPhoneNumber,
+    validBraces,
 } = require('./main')
 
 /**
@@ -110,5 +111,38 @@ describe('createPhoneNumber', () => {
     })
     test('Result for [1, 1, 1, 1, 1, 1, 1, 1, 1, 1] is (111) 111-1111', () => {
         expect(createPhoneNumber([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])).toBe('(111) 111-1111')
+    })
+})
+
+/**
+ * testing of validBraces
+ */
+describe('validBraces', () => {
+    test('"()))" is expected to be false', () => {
+        expect(validBraces("()))")).toBeFalsy()
+    })
+    test('"(){}[]" is expected to be truthy', () => {
+        expect(validBraces("(){}[]")).toBeTruthy()
+    })
+    test('"[{()}]" is expected to be truthy', () => {
+        expect(validBraces("[{()}]")).toBeTruthy()
+    })
+    test('"(}" is expected to be falsy', () => {
+        expect(validBraces("(}")).toBeFalsy()
+    })
+    test('"[(])" is expected to be falsy', () => {
+        expect(validBraces("[(])")).toBeFalsy()
+    })
+    test('"({})[({})]" is expected to be truthy', () => {
+        expect(validBraces("({})[({})]")).toBeTruthy()
+    })
+    test('"(})" is expected to be falsy', () => {
+        expect(validBraces("(})")).toBeFalsy()
+    })
+    test('"(((({{" is expected to be falsy', () => {
+        expect(validBraces("(((({{")).toBeFalsy()
+    })
+    test('"}}))]])" is expected to be falsy', () => {
+        expect(validBraces("}}))]])")).toBeFalsy()
     })
 })

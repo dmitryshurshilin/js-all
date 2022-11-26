@@ -92,6 +92,26 @@ const createPhoneNumber = (numbers) => {
     return numbers.reduce((format, number) => format.replace('x', number), format)
 }
 
+// https://www.codewars.com/kata/5277c8a221e209d3f6000b56/train/javascript
+const validBraces = (braces) => {
+    const bracesMap = new Map([
+        ['(',')'],
+        ['{','}'],
+        ['[',']'],
+    ])
+
+    const isOpen = (brace) => bracesMap.has(brace)
+    const isClose = (brace) => {
+        return !isOpen(brace)
+            && buffer.length > 0
+            && bracesMap.get(buffer[buffer.length - 1]) === brace
+    }
+    const buffer = []
+    return braces.split('').every((brace) => {
+        return (isOpen(brace) && buffer.push(brace)) || (isClose(brace) && buffer.pop())
+    }) && buffer.length === 0
+}
+
 module.exports = {
     sum1,
     sum2,
@@ -100,4 +120,5 @@ module.exports = {
     arrayDiff,
     bakeCakes,
     createPhoneNumber,
+    validBraces,
 }
