@@ -1,5 +1,13 @@
-// $('.selector').addClass('.className').html('<p>Lorem ipsum</p>')  
-const $ = function(selector: string):object | null {
+interface I$ {
+    addClass: (cssClass: string) => object,
+    toggleClass: (cssClass: string) => object,
+    removeClass: (cssClass: string) => object,
+    width: (width: string) => object,
+    height: (height: string) => object,
+    html: (html: string) => object,
+}
+
+const $ = function(selector: string):I$ | null {
     let element: HTMLElement | null = document.querySelector(selector)
     if (element) {
         return {
